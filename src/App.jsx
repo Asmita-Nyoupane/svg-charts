@@ -20,21 +20,24 @@ function App() {
     <>
       <div className="legend">Line Chart</div>
 
-      <Chart data={barData} valueKey={"stats.value"} width={LINE_CHART_WIDTH}>
-        {(heighestValue, ticks) => (
+      <Chart
+        data={barData}
+        valueKey={"stats.value"}
+        width={LINE_CHART_WIDTH}
+        labelKey="country.name"
+      >
+        {(heighestValue) => (
           <LineChart
             data={barData}
             valueKey="stats.value"
             labelKey="country.name"
             heighestValue={heighestValue}
-            ticks={ticks}
           />
           // <BarChart
           //   data={barData}
           //   valueKey="stats.value"
           //   labelKey="country.name"
           //   heighestValue={heighestValue}
-          //   ticks={ticks}
           // />
         )}
       </Chart>
