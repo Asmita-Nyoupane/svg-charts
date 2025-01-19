@@ -15,7 +15,6 @@ const barData = [
 ];
 
 function App() {
-  const barChartWidth = barData.length * (BAR_MARGIN + BAR_WIDTH);
   return (
     <>
       <div className="legend">Line Chart</div>

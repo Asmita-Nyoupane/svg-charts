@@ -1,7 +1,8 @@
 import React from "react";
 import { getNestedValue } from "../lib/utility";
-import AxisLabel from "./axis-label";
+
 import { CHART_HEIGHT, LINE_CHART_WIDTH } from "../lib/constant";
+import XAxis from "./x-axis";
 
 const LineChart = ({ data, labelKey, valueKey, heighestValue }) => {
   // Calculate points
@@ -21,6 +22,13 @@ const LineChart = ({ data, labelKey, valueKey, heighestValue }) => {
 
   return (
     <>
+      <XAxis
+        width={LINE_CHART_WIDTH}
+        data={data}
+        labelKey={labelKey}
+        type="line"
+        pointGap={pointGap}
+      />
       {/* Draw Line */}
       <path d={linePath} fill="none" stroke="blueviolet" strokeWidth="2" />
 
