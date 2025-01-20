@@ -1,8 +1,15 @@
 import React from "react";
-import { BAR_MARGIN, BAR_WIDTH, CHART_HEIGHT } from "../lib/constant";
+import {
+  BAR_MARGIN,
+  BAR_WIDTH,
+  CHART_HEIGHT,
+  LINE_CHART_WIDTH,
+} from "../lib/constant";
 import { getNestedValue } from "../lib/utility";
 
-const XAxis = ({ width, data, labelKey, type = "line", pointGap }) => {
+const XAxis = ({ width, data, labelKey, type = "line" }) => {
+  // Calculate points
+  const pointGap = LINE_CHART_WIDTH / (data.length - 1);
   return (
     <>
       <line

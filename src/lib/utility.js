@@ -25,3 +25,14 @@ export const generateTicks = (maxValue, numTicks) => {
   const step = Math.ceil(maxValue / numTicks);
   return Array.from({ length: numTicks + 1 }, (_, i) => i * step);
 };
+// function to calculate highest value
+export const highestValue = (data, valueKey) => {
+  return data.reduce((acc, curr) => {
+    const value = getNestedValue(curr, valueKey);
+    return value > acc ? value : acc;
+  }, 0);
+};
+//function to calculate  y position
+export const calculateYPosition = (value, max, chartHeight, padding = 50) => {
+  return chartHeight - (value / max) * (chartHeight - padding);
+};

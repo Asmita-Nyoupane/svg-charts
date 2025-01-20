@@ -1,22 +1,19 @@
 import React from "react";
-import { getNestedValue } from "../lib/utility";
+import {
+  calculateYPosition,
+  getNestedValue,
+  highestValue,
+} from "../lib/utility";
 import { BAR_MARGIN, BAR_WIDTH, CHART_HEIGHT } from "../lib/constant";
-import XAxis from "./x-axis";
 
-const BarChart = ({ data, valueKey, heighestValue, labelKey }) => {
-  const barChartWidth = data.length * (BAR_MARGIN + BAR_WIDTH);
+const BarChart = ({ data, valueKey }) => {
+  const max = highestValue(data, valueKey);
   return (
     <>
-      <XAxis
-        width={barChartWidth}
-        data={data}
-        labelKey={labelKey}
-        type={"bar"}
-      />
       {data.map((item, index) => {
-        const barValue = getNestedValue(item, valueKey);
-        const scaledHeight = (barValue / heighestValue) * (CHART_HEIGHT - 50);
-        const yPosition = CHART_HEIGHT - scaledHeight;
+        const value = getNestedValue(item, valueKey);
+        const yPosition = calculateYPosition(value, max, CHART_HEIGHT);
+        const scaledHeight = CHART_HEIGHT - yPosition;
 
         return (
           <rect
@@ -25,7 +22,7 @@ const BarChart = ({ data, valueKey, heighestValue, labelKey }) => {
             y={yPosition}
             width={BAR_WIDTH}
             height={scaledHeight}
-            fill={barValue === heighestValue ? "red" : "blueviolet"}
+            fill={value === max ? "red" : "blueviolet"}
           />
         );
       })}

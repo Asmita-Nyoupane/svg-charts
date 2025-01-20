@@ -1,8 +1,9 @@
 import React from "react";
-import { CHART_HEIGHT } from "../lib/constant";
-import AxisLabel from "./axis-label";
+import { CHART_HEIGHT, NUMBER_OF_TICKS } from "../lib/constant";
+import { generateTicks } from "../lib/utility";
 
-const YAxis = ({ ticks, heighestValue }) => {
+const YAxis = ({ max }) => {
+  const ticks = generateTicks(max, NUMBER_OF_TICKS);
   return (
     <>
       <line
@@ -16,7 +17,7 @@ const YAxis = ({ ticks, heighestValue }) => {
       {/* Render Vertical Axis Ticks  */}
       {ticks.map((tickValue, index) => {
         const yPosition =
-          CHART_HEIGHT - (tickValue / heighestValue) * (CHART_HEIGHT - 50);
+          CHART_HEIGHT - (tickValue / max) * (CHART_HEIGHT - 50);
         return (
           <g key={`tick-${index}`} transform={`translate(0, ${yPosition})`}>
             <line x1={0} x2={-6} stroke="black" />

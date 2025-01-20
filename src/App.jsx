@@ -2,42 +2,38 @@ import "./App.css";
 import BarChart from "./component/Bar";
 import Chart from "./component/chart";
 import LineChart from "./component/line-chart";
+import XAxis from "./component/x-axis";
+import YAxis from "./component/y-axis";
 import { BAR_MARGIN, BAR_WIDTH, LINE_CHART_WIDTH } from "./lib/constant";
-const barData = [
-  { country: { name: "Afghanistan" }, stats: { value: 42240 } },
-  { country: { name: "Bangladesh" }, stats: { value: 172954 } },
-  { country: { name: "Bhutan" }, stats: { value: 787 } },
-  { country: { name: "India" }, stats: { value: 1428628 } },
-  { country: { name: "Maldives" }, stats: { value: 521 } },
-  { country: { name: "Nepal" }, stats: { value: 30897 } },
-  { country: { name: "Pakistan" }, stats: { value: 240486 } },
-  { country: { name: "Sri Lanka" }, stats: { value: 21894 } },
-];
+import { barData } from "./lib/data";
+import { highestValue } from "./lib/utility";
+
+const valueKey = "stats.value";
+const labelKey = "country.name";
+// type can be line or bar
+const type = "bar";
 
 function App() {
   return (
     <>
-      <div className="legend">Line Chart</div>
+      <div className="legend"> Chart</div>
 
-      <Chart
-        data={barData}
-        valueKey={"stats.value"}
-        width={LINE_CHART_WIDTH}
-        labelKey="country.name"
-      >
-        {(heighestValue) => (
-          <LineChart
-            data={barData}
-            valueKey="stats.value"
-            labelKey="country.name"
-            heighestValue={heighestValue}
-          />
-          // <BarChart
-          //   data={barData}
-          //   valueKey="stats.value"
-          //   labelKey="country.name"
-          //   heighestValue={heighestValue}
-          // />
+      <Chart width={LINE_CHART_WIDTH}>
+        <YAxis max={highestValue(barData, valueKey)} />
+        <XAxis
+          width={
+            type === "bar"
+              ? barData.length * (BAR_MARGIN + BAR_WIDTH)
+              : LINE_CHART_WIDTH
+          }
+          data={barData}
+          labelKey={labelKey}
+          type={type}
+        />
+        {type === "bar" ? (
+          <BarChart data={barData} valueKey={valueKey} />
+        ) : (
+          <LineChart data={barData} valueKey={valueKey} />
         )}
       </Chart>
     </>

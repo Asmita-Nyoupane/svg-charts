@@ -1,18 +1,22 @@
 import React from "react";
-import { getNestedValue } from "../lib/utility";
-
+import {
+  calculateYPosition,
+  getNestedValue,
+  highestValue,
+} from "../lib/utility";
 import { CHART_HEIGHT, LINE_CHART_WIDTH } from "../lib/constant";
-import XAxis from "./x-axis";
 
-const LineChart = ({ data, labelKey, valueKey, heighestValue }) => {
-  // Calculate points
+const LineChart = ({ data, valueKey }) => {
+  const max = highestValue(data, valueKey);
   const pointGap = LINE_CHART_WIDTH / (data.length - 1);
 
+  // Calculate points
   const points = data.map((item, index) => {
     const value = getNestedValue(item, valueKey);
     const x = index * pointGap;
-    const y = CHART_HEIGHT - (value / heighestValue) * (CHART_HEIGHT - 50);
-    return { x, y, label: getNestedValue(item, labelKey), value };
+    const y = calculateYPosition(value, max, CHART_HEIGHT);
+
+    return { x, y };
   });
 
   // Create line path
@@ -22,13 +26,6 @@ const LineChart = ({ data, labelKey, valueKey, heighestValue }) => {
 
   return (
     <>
-      <XAxis
-        width={LINE_CHART_WIDTH}
-        data={data}
-        labelKey={labelKey}
-        type="line"
-        pointGap={pointGap}
-      />
       {/* Draw Line */}
       <path d={linePath} fill="none" stroke="blueviolet" strokeWidth="2" />
 
