@@ -1,15 +1,7 @@
 import React from "react";
-import {
-  BAR_MARGIN,
-  BAR_WIDTH,
-  CHART_HEIGHT,
-  LINE_CHART_WIDTH,
-} from "../lib/constant";
-import { getNestedValue } from "../lib/utility";
+import { BAR_WIDTH, CHART_HEIGHT } from "../lib/constant";
 
-const XAxis = ({ width, data, labelKey, type = "line" }) => {
-  // Calculate points
-  const pointGap = LINE_CHART_WIDTH / (data.length - 1);
+const XAxis = ({ width, precomputedData, type = "bar" }) => {
   return (
     <>
       <line
@@ -21,19 +13,17 @@ const XAxis = ({ width, data, labelKey, type = "line" }) => {
         strokeWidth={"1"}
       />
       {/* Horizontal rendering of labels */}
-      {data?.map((item, index) => (
+      {precomputedData?.map((item, index) => (
         <g
           key={`x-tick-${index}`}
           transform={`translate(
             ${
-              type === "line"
-                ? index * pointGap
-                : index * (BAR_WIDTH + BAR_MARGIN) + BAR_WIDTH / 2
+              type === "bar" ? item.xPosition + BAR_WIDTH / 2 : item.xPosition
             }, ${CHART_HEIGHT})`}
         >
           <line x1={0} x2={0} y1={0} y2={6} stroke="black" />
           <text textAnchor="middle" y={15}>
-            {getNestedValue(item, labelKey)}
+            {item.label}
           </text>
         </g>
       ))}

@@ -1,27 +1,17 @@
 import React from "react";
-import {
-  calculateYPosition,
-  getNestedValue,
-  highestValue,
-} from "../lib/utility";
-import { BAR_MARGIN, BAR_WIDTH, CHART_HEIGHT } from "../lib/constant";
+import { BAR_WIDTH } from "../lib/constant";
 
-const BarChart = ({ data, valueKey }) => {
-  const max = highestValue(data, valueKey);
+const BarChart = ({ precomputedData, max, value }) => {
   return (
     <>
-      {data.map((item, index) => {
-        const value = getNestedValue(item, valueKey);
-        const yPosition = calculateYPosition(value, max, CHART_HEIGHT);
-        const scaledHeight = CHART_HEIGHT - yPosition;
-
+      {precomputedData.map((item, index) => {
         return (
           <rect
             key={`bar-${index}`}
-            x={index * (BAR_WIDTH + BAR_MARGIN)}
-            y={yPosition}
+            x={item.xPosition}
+            y={item.yPosition}
             width={BAR_WIDTH}
-            height={scaledHeight}
+            height={item.height}
             fill={value === max ? "red" : "blueviolet"}
           />
         );
