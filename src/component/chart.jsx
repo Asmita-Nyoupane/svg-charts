@@ -46,7 +46,7 @@ const Chart = ({ children, data, valueKey, labelKey, type = "bar" }) => {
       preserveAspectRatio="xMidYMax meet"
     >
       {React.Children.map(children, (child) =>
-        React.cloneElement(child, { precomputedData, max })
+        React.cloneElement(child, { precomputedData, max, width, type })
       )}
     </svg>
   );

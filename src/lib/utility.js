@@ -22,9 +22,10 @@ export const flattenData = (data, valueKey) => {
 //  function genrate raneg
 
 export const generateTicks = (maxValue, numTicks) => {
-  const step = Math.ceil(maxValue / numTicks);
+  const step = Math.ceil(maxValue / numTicks / 100) * 100;
   return Array.from({ length: numTicks + 1 }, (_, i) => i * step);
 };
+
 // function to calculate highest value
 export const highestValue = (data, valueKey) => {
   return data.reduce((acc, curr) => {
