@@ -9,7 +9,7 @@ import { barData } from "./lib/data";
 const valueKey = "stats.value";
 const labelKey = "country.name";
 // type can be line or bar
-const type = "bar";
+const type = "line";
 
 function App() {
   return (
