@@ -15,14 +15,8 @@ const LineChart = ({ precomputedData }) => {
       <path d={linePath} fill="none" stroke="blueviolet" strokeWidth="2" />
 
       {/* Draw Points */}
-      {precomputedData.map((point, index) => (
-        <circle
-          key={`point-${index}`}
-          cx={point.xPosition}
-          cy={point.yPosition}
-          r={2}
-          fill="red"
-        />
+      {data.map((d, i) => (
+        <circle key={i} cx={x(i)} cy={y(d)} r="2.5" />
       ))}
     </>
   );
