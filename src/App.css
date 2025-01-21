@@ -21,12 +21,12 @@ button {
   background: rgb(163, 163, 197);
 }
 svg {
-  background-color: rgba(28, 45, 51, 0.655);
+  background-color: rgba(188, 221, 233, 0.655);
   margin-top: 2vh;
-  padding: 1rem;
+  padding: 2rem;
 }
 svg text {
-  font-size: 1vh;
+  font-size: 2vh;
   font-weight: bold;
 }
 #root {
@@ -47,4 +47,8 @@ svg text {
 }
 .label {
   color: #000;
+}
+.container {
+  width: 960px;
+  height: 600px;
 }
